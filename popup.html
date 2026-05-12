@@ -1,25 +1,136 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Focus Blocker</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>Focus Blocker</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
+  <div class="container">
+
+    <!-- Header -->
+    <div class="header">
+      <div class="header-left">
+        <span class="header-icon">🛡️</span>
         <h2>Focus Blocker</h2>
-        <div class = "input-group">
-            <input type="text" id="sideInput" placeholder="Enter site..."/>
-            <button id = "addBtn">Add</button>
-        </div>
-        <button id="toggleBtn" class="toggle">Turn ON</button>
-        <button id="">Clear All</button>
-        <button id=""></button>
-        
-        <ul id="siteList"></ul>
-        
+      </div>
+      <div class="header-right">
+        <span id="statusBadge" class="header-badge inactive">Inactive</span>
+        <button id="statsToggle" class="stats-toggle" title="View Stats">📊</button>
+      </div>
     </div>
 
-<script src="popup.js"></script>
-</body>
+    <!-- Blocker View -->
+    <div id="blockerView" class="content">
 
+      <!-- Add Site -->
+      <div class="input-group">
+        <input type="text" id="siteInput" placeholder="e.g. youtube.com" />
+        <button id="addBtn">+ Add</button>
+      </div>
+
+      <!-- Toggle & Clear -->
+      <div class="actions">
+        <button id="toggleBtn" class="blocking-off">▶ Start Blocking</button>
+        <button id="clearBtn">Clear All</button>
+      </div>
+
+      <!-- Break Section -->
+      <div id="breakSection" class="break-section">
+        <div id="breakIdle" class="break-idle">
+          <div class="break-idle-header">
+            <span class="break-idle-icon">☕</span>
+            <div class="break-idle-text">
+              <span class="break-idle-title">Need a breather?</span>
+              <span class="break-idle-sub">Temporarily pause blocking</span>
+            </div>
+          </div>
+          <div class="break-row">
+            <select id="breakDuration">
+              <option value="5">5 min</option>
+              <option value="10">10 min</option>
+              <option value="15">15 min</option>
+            </select>
+            <button id="breakBtn">Take a Break</button>
+          </div>
+        </div>
+        <div id="breakActive" class="break-active" style="display:none;">
+          <div class="break-ring-wrapper">
+            <svg class="break-ring" viewBox="0 0 80 80">
+              <circle class="break-ring-bg" cx="40" cy="40" r="34" />
+              <circle id="breakRingProgress" class="break-ring-fill" cx="40" cy="40" r="34" />
+            </svg>
+            <span class="break-ring-icon">☕</span>
+          </div>
+          <div class="break-timer-display">
+            <span id="breakCountdown" class="break-countdown">05:00</span>
+            <span class="break-label">remaining</span>
+          </div>
+          <div class="break-progress-bar">
+            <div id="breakProgressFill" class="break-progress-fill"></div>
+          </div>
+          <button id="endBreakBtn">End Break Early</button>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="divider">
+        <span class="divider-text">Blocked Sites</span>
+      </div>
+
+      <!-- Site List -->
+      <ul id="siteList"></ul>
+    </div>
+
+    <!-- Stats View -->
+    <div id="statsView" class="content stats-view" style="display:none;">
+
+      <!-- Score Ring -->
+      <div class="score-section">
+        <div class="score-ring-wrapper">
+          <svg class="score-ring" viewBox="0 0 120 120">
+            <circle class="score-ring-bg" cx="60" cy="60" r="52" />
+            <circle id="scoreRingFill" class="score-ring-fill" cx="60" cy="60" r="52" />
+          </svg>
+          <div class="score-value-wrapper">
+            <span id="scoreValue" class="score-value">0</span>
+            <span class="score-label">Focus Score</span>
+          </div>
+        </div>
+        <p id="scoreSummary" class="score-summary">Start blocking to build your score!</p>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="stats-cards">
+        <div class="stat-card">
+          <span class="stat-icon">⏱️</span>
+          <span id="statFocusTime" class="stat-value">0m</span>
+          <span class="stat-label">Focus Time</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-icon">🚫</span>
+          <span id="statBlocked" class="stat-value">0</span>
+          <span class="stat-label">Blocked</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-icon">☕</span>
+          <span id="statBreaks" class="stat-value">0</span>
+          <span class="stat-label">Breaks</span>
+        </div>
+      </div>
+
+      <!-- 7-Day Chart -->
+      <div class="chart-section">
+        <div class="chart-header">
+          <span class="chart-title">Last 7 Days</span>
+        </div>
+        <div id="weekChart" class="week-chart"></div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <script src="popup.js"></script>
+</body>
 </html>
